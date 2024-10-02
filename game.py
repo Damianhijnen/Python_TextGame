@@ -11,7 +11,7 @@ class character:
     accuracy = 1
     endurance = 1
 
-
+    
 
 inp = "empty"
 while True:
@@ -21,5 +21,6 @@ while True:
 
     inp = ""
     inp = str(input(str(session.msg) + " \n"))
-    if inp == "kill":
+    if inp == "end":
+        print("ending")
         break
