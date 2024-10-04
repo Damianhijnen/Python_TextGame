@@ -3,6 +3,7 @@ def construct():
     class location:
         main = "starter"
         sub = "townSquare"
+        strength = 1
     return location
 
 def main(inp, main):
