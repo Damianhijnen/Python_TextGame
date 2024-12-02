@@ -14,7 +14,6 @@ class character:
     hp = 100
 
     
-
 inp = "empty"
 while True:
     if session.state == "travel":

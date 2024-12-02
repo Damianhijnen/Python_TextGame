@@ -1,41 +1,49 @@
 import random
 import testData
 
-testSession = testData.constructSession()
+# testSession = testData.constructSession()
 #Nodig voor main mischien verplaatsen??
-def construct(inp, session):
-    class character:
-        strength = 1
-        speed = 1
-        accuracy = 1
-        endurance = 1
-        hp = 100
-    return character
+class Enemy:
+    def __init__(self, name = "unnamed", strength: int = 1, speed: int = 1, accuracy: int = 1, endurance: int = 1, hp: int = 10, dificulty: int = 1):
+        self.name = name
+        self.strength = strength * (dificulty / 4)
+        self.speed = speed * (dificulty / 4)
+        self.accuracy = accuracy * (dificulty / 4)
+        self.endurance = endurance * (dificulty / 4)
+        self.hp = hp * dificulty
 
 def combat(inp, session):
-    charachter = session.character 
+    character = session.character 
     return ""
 
 
-#Concept
-#
-#enemieName
-#   name: "Golem"
-#   speed: 1
-#   attack: 2
-#   endurance: 3
-#   hp: 10
-#   
-def enemyGenerator(inp, session):
+## Hier 
+def senarioGenerator(chance, dificulty, location, range):
     enemies = []
-    if session.location.main == "starter":
-        amount = random.randint(1, 3)
-        
+    #range[0] = min, range[1] = max
+    amount = random.randint(range[0], range[1])
+    if chance < random.randint(1, 100):
         for i in range(amount):
-                enemies.append('golem')
+            if location.main == "starter":
+                enemyGenerator(dificulty, ["golem"])
     return enemies
 
-print(enemyGenerator("", testSession))
-print(enemyGenerator("", testSession))
-print(enemyGenerator("", testSession))
+
+def enemyGenerator(dificulty, enemyTypes):
+    enemyType = enemyTypes[random.randint(0, len(enemyTypes)-1)]
+    # Hier is de type defined
+    if enemyType == "goblin":
+        return Enemy("goblin", 1, 5, 3, 1, 10, dificulty)
+    if enemyType == "golem":
+        return Enemy("golem", 2, 1, 2, 3, 100, dificulty)
+    if enemyType == "golem":
+        return Enemy("golem", 2, 1, 2, 3, 100, dificulty)
+       
+en1 = enemyGenerator(1, ["golem", "goblin"])                
+en2 = enemyGenerator(1, ["goblin", "golem"])
+en3 = enemyGenerator(1, ["golem"])
+
+print(str(en1.name) + " str: " + str(en1.strength))
+print(str(en2.name) + " str: " + str(en2.strength))
+print(str(en3.name) + " str: " + str(en3.strength))
 
