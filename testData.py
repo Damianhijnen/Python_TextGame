@@ -1,15 +1,15 @@
-import travel
+import core.travel as travel
 print("Game start\n")
 
 def constructSession():
     class session:
-        location = travel.construct()
+        location = travel.Location()
         msg = "You are on the main square.\n 1. Go to Town Hall 2. Go to Forest: "
         state = "travel"
         character = constructCharacter()
     return session
 
-    
+
 def constructCharacter():
     class character:
         strength = 1

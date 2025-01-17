@@ -1,0 +1,48 @@
+import random
+from core.enemies.enemies import Enemy
+# testSession = testData.constructSession()
+# Nodig voor main mischien verplaatsen??
+class Enemy:
+    def __init__(self, name = "unnamed", strength: int = 1, speed: int = 1, accuracy: int = 1, endurance: int = 1, hp: int = 10, dificulty: int = 1):
+        self.name = name
+        self.strength = strength * (dificulty / 4)
+        self.speed = speed * (dificulty / 4)
+        self.accuracy = accuracy * (dificulty / 4)
+        self.endurance = endurance * (dificulty / 4)
+        self.hp = hp * dificulty
+
+def combat(inp, session):
+    character = session.character
+    while True:
+        break
+
+
+def senarioGenerator(chance, dificulty, location, rangeArr):
+    enemies = []
+    # range[0] = min, range[1] = max
+    amount = random.randint(rangeArr[0], rangeArr[1]) 
+    if chance >= random.randint(1, 100):
+        for i in range(amount):
+            if location.main == "starter":
+                enemies.append(enemyGenerator(dificulty, ["golem"]))
+    return enemies
+
+
+def enemyGenerator(dificulty, enemyTypes):
+    enemyType = enemyTypes[random.randint(0, len(enemyTypes)-1)]
+    # Hier is de type defined
+    return Enemy(enemyType, dificulty)
+
+
+def test():
+    en1 = enemyGenerator(1, ["golem", "goblin"])                
+    en2 = enemyGenerator(1, ["goblin", "golem"])
+    en3 = enemyGenerator(1, ["golem"])
+
+    print(str(en1.name) + " str: " + str(en1.strength))
+    print(str(en2.name) + " str: " + str(en2.strength))
+    print(str(en3.name) + " str: " + str(en3.strength))
+
+
+
+test()
