@@ -1,3 +1,4 @@
+<<<<<<< HEAD:travel.py
 #veritas
 
 def construct():
@@ -16,6 +17,14 @@ def main(inp, main):
         msg.townHall = "You are in the Town hall.\n 1. Go outside "
         msg.forest = "You are in the forest.\n 1. Go back 2. Go deeper"
         msg.deepForest = "You are deep in the forest.\n 1. Go back 2. Go deeper"
+=======
+def location(inp, main):
+        class msg:
+            townSquare = "You are on the main square.\n 1. Go to Town Hall 2. Go to Forest: "
+            townHall = "You are in the Town hall.\n 1. Go outside "
+            forest = "You are in the forest.\n 1. Go back 2. Go deeper"
+            deepForest = "You are deep in the forest.\n 1. Go back 2. Go deeper"
+>>>>>>> e7fbe7b1d0165d71b3efbf96498f79eb788623b2:core/locations/starter.py
         if main.location.sub == "townSquare":
             if inp == "1":
                 main.msg = msg.townHall
@@ -72,4 +81,3 @@ def main(inp, main):
                 main.msg =  "You have left the forest"
                 main.location.sub = "forest2"
                 return main
-    return main
