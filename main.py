@@ -4,7 +4,7 @@ import core.entities as entities
 
 
 class session:
-    location = travel.construct()
+    location = travel.Location()
     msg = "You are on the main square.\n 1. Go to Town Hall 2. Go to Forest: "
     state = "travel"
     character = entities.Character()
@@ -28,5 +28,5 @@ def menu():
             break
 
 def test():
-    game(session)
-menu()
+    game.main(session)
+test()

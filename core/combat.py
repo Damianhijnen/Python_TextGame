@@ -2,30 +2,36 @@ import random
 from core.enemies.enemies import Enemy
 # testSession = testData.constructSession()
 # Nodig voor main mischien verplaatsen??
-class Enemy:
-    def __init__(self, name = "unnamed", strength: int = 1, speed: int = 1, accuracy: int = 1, endurance: int = 1, hp: int = 10, dificulty: int = 1):
-        self.name = name
-        self.strength = strength * (dificulty / 4)
-        self.speed = speed * (dificulty / 4)
-        self.accuracy = accuracy * (dificulty / 4)
-        self.endurance = endurance * (dificulty / 4)
-        self.hp = hp * dificulty
+
 
 def combat(inp, session):
     character = session.character
+    enemies = session.enemies
+    print("Your being attacked:")
     while True:
-        break
+        for enemy in enemies:
+            print(enemy.name + " " +  str(enemy.hp))
+        inp = input("Action: ")
+        if inp == "end":
+            print("you ended the senario")
+            break
+        elif inp == "1":
+            print("attack")
+    session.state = "travel"
+    return session
 
 
-def senarioGenerator(chance, dificulty, location, rangeArr):
-    enemies = []
+def senarioGenerator(chance, dificulty, session, rangeArr):
+    location = session.location
+    session.enemies = []
     # range[0] = min, range[1] = max
     amount = random.randint(rangeArr[0], rangeArr[1]) 
     if chance >= random.randint(1, 100):
         for i in range(amount):
-            if location.main == "starter":
-                enemies.append(enemyGenerator(dificulty, ["golem"]))
-    return enemies
+            if location.main == "veritas":
+                session.enemies.append(enemyGenerator(dificulty, ["golem"]))
+        session.state = "combat"
+    return session
 
 
 def enemyGenerator(dificulty, enemyTypes):
@@ -45,4 +51,4 @@ def test():
 
 
 
-test()
+#test()
