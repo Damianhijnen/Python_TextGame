@@ -3,6 +3,15 @@ import testData
 
 # testSession = testData.constructSession()
 #Nodig voor main mischien verplaatsen??
+
+class Golem:
+    name = "Golem"
+    strength = 4
+    speed = 1
+    accuracy = 2
+    endurance = 2
+    hp = 10
+
 class Enemy:
     def __init__(self, name = "unnamed", strength: int = 1, speed: int = 1, accuracy: int = 1, endurance: int = 1, hp: int = 10, dificulty: int = 1):
         self.name = name

@@ -1,7 +1,8 @@
+#veritas
 
 def construct():
     class location:
-        main = "starter"
+        main = "Veritas"
         sub = "townSquare"
         strength = 1
     return location
@@ -10,7 +11,7 @@ def main(inp, main):
     #print("input:", inp, "location:", main.location.main, main.location.sub)
     class msg:
         pass
-    if main.location.main == "starter":
+    if main.location.main == "Veritas":
         msg.townSquare = "You are on the main square.\n 1. Go to Town Hall 2. Go to Forest: "
         msg.townHall = "You are in the Town hall.\n 1. Go outside "
         msg.forest = "You are in the forest.\n 1. Go back 2. Go deeper"

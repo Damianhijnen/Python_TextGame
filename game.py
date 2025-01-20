@@ -1,11 +1,12 @@
 import travel
 import combat
+import entities
 print("Game start\n")
 class session:
     location = travel.construct()
     msg = "You are on the main square.\n 1. Go to Town Hall 2. Go to Forest: "
     state = "travel"
-    character = combat.construct()
+    character = entities.Character()
 class character:
     strength = 1
     speed = 1
