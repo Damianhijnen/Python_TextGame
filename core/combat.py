@@ -3,6 +3,7 @@ from core.enemies.enemies import Enemy
 # testSession = testData.constructSession()
 # Nodig voor main mischien verplaatsen??
 
+attacks = [["stab", 1], ["slash", 2]]
 
 def combat(inp, session):
     character = session.character
@@ -15,8 +16,14 @@ def combat(inp, session):
         if inp == "end":
             print("you ended the senario")
             break
+        # start attack
         elif inp == "1":
             print("attack")
+            while True:
+                for attack in attacks:
+                    print(attack[0] + " " + str(attack[1]))
+                inp = input("Attack: ")
+
     session.state = "travel"
     return session
 
