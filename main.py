@@ -10,7 +10,6 @@ class session:
     character = entities.Character()
 
 
-
 def menu():
     while True:
         inp = input("\n1. start 2. check stats\n")
