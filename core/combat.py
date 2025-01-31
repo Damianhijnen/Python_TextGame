@@ -1,14 +1,14 @@
 import sys
 import time
-
 import random
 import re
 from core.enemies.enemies import Enemy
 from core.entities import attack
+from core.function import inpInt, sInput, nobreak_line, line
 # testSession = testData.constructSession()
 # Nodig voor main mischien verplaatsen??
 
-attacks = [attack("stab", 1, 0, 0), attack("slash", 2, 1, 0)]
+attacks = [attack("stab", 1, 0, 0), attack("slash", 2, 1, 0), attack("super slash", 10, 1, 0)]
 
 def combat(inp, session):
     character = session.character
@@ -17,7 +17,7 @@ def combat(inp, session):
     while True:
         for enemy in enemies:
             line(" " + enemy.name + " " +  str(enemy.hp))
-        inp = sInput("\nAction \n 1. Attack \n Choose action: ")
+        inp = sInput("\nhp: " + str(character.hp) + " \nActions \n 1. Attack \n Choose action: ")
         if inp == "end":
             line("you ended the senario")
             break
@@ -30,7 +30,7 @@ def combat(inp, session):
                 for attack in attacks:
                     line(" " + attack.name + " dmg: " + str(attack.damage))
                 inp = inpInt(sInput("\nChoose Attack: "))
-                if inp != "" and inp != 0:
+                if inp != "" and inp != 0 and inp <= len(attacks):
                     att = attacks[inp-1]
                     # Selecting enemy
                     for index, enemy in enumerate(enemies):
@@ -43,20 +43,33 @@ def combat(inp, session):
                         line("You " + att.name + " " + enemies[inp].name + " for " + str(att.damage) + " dmg")
                         if enemies[inp].hp <= 0:
                             line(enemies[inp].name + " was slain")
-                            enemies.pop()
+                            enemies.pop(inp)
                         break
                     else:
                         line("You " + att.name + " the air for 0 dmg")
                 else:
                     line("Wrong input must be a number")
+                # end of player sequence
+        else:
+            line("Not an action")
+            continue
+        # ai attack sequence
+        for enemy in enemies:
+            line(enemy.name + " is attacking")
+            dmg = enemy.combat.attack()
+            character.hp = character.hp - dmg
+        line("\n")
+
         # all enemies defeated
         if len(enemies) == 0:
-            line("you defeated all enemies")
+            line("you defeated all enemies\n")
             break
     session.character = character
     session.state = "travel"
     session.enemies = []
     return session
+
+
 
 
 def senarioGenerator(chance, dificulty, session, rangeArr):
@@ -89,27 +102,3 @@ def test():
 
 
 
-def inpInt(inp):
-    inp = re.sub("[^0-9]", "", inp)
-    if inp != "":
-        return int(inp)
-    else:
-        return 0
-#test()
-def sInput(msg):
-    nobreak_line(msg)
-    return input(" ")
-
-
-def nobreak_line(inp):
-    for letter in inp:
-        sys.stdout.write(letter)
-        sys.stdout.flush()
-        time.sleep(0.04)
-
-def line(inp):
-    for letter in inp:
-        sys.stdout.write(letter)
-        sys.stdout.flush()
-        time.sleep(0.04)
-    print("")
