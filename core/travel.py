@@ -1,4 +1,5 @@
 import core.locations.starter as starter
+import core.locations.great_planes as great_planes
 
 class Location:
     def __init__(self, main: str = "veritas", sub = "townSquare", strength = 1) -> None:
@@ -12,4 +13,6 @@ def main(inp, session):
         pass
     if session.location.main == "veritas":
         session = starter.location(inp, session)
+    elif session.location.main == "great_planes":
+        session = great_planes.location(inp, session)
     return session

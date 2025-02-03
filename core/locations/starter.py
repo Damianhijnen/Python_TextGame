@@ -27,7 +27,7 @@ def location(inp, main):
                 main.msg = msg.townHall
         #Forrest###########
         if main.location.sub == "forest":
-            combat.senarioGenerator(100, 1, main, [1, 3])
+            #combat.senarioGenerator(100, 1, main, [1, 3])
             main.msg = msg.forest
             if inp == "1":
                 main.msg = msg.townSquare
@@ -38,7 +38,7 @@ def location(inp, main):
                 main.location.sub = "forest2"
                 return main
         if main.location.sub == "forest2":
-            combat.senarioGenerator(100, 1, main, [1, 3])
+            #combat.senarioGenerator(100, 1, main, [1, 3])
             if inp == "1":
                 main.msg = msg.forest
                 main.location.sub = "forest"
@@ -48,23 +48,43 @@ def location(inp, main):
                 main.location.sub = "deepForest"
                 return main
         if main.location.sub == "deepForest":
-            combat.senarioGenerator(100, 1, main, [1, 3])
+            #combat.senarioGenerator(100, 1, main, [1, 3])
+            if inp == "1":
+                main.msg = msg.forest
+                main.location.sub = "forest"
+                return main
+            if inp == "2":
+                main.msg = msg.deepForest
+                main.location.sub = "deepForest2"
+                return main
+        if main.location.sub == "deepForest2":
+            #combat.senarioGenerator(100, 1, main, [1, 3])
+            if inp == "1":
+                main.msg = msg.deepForest
+                main.location.sub = "forest"
+                return main
+            if inp == "2":
+                main.msg = msg.deepForest
+                main.location.sub = "deepForest3"
+                return main
+        if main.location.sub == "deepForest3":
+            #combat.senarioGenerator(100, 1, main, [1, 3])
             if inp == "1":
                 main.msg = msg.deepForest
                 main.location.sub = "forest"
                 return main
             if inp == "2":
                 main.msg = "You are deep in the forest, you see the end of the tree lines in the distance \n 1. Go back 2. Leave the forest"
-                main.location.sub = "deepForest2"
+                main.location.sub = "planes"
                 return main
-        if main.location.sub == "deepForest2":
-            combat.senarioGenerator(100, 1, main, [1, 3])
+        if main.location.sub == "planes":
             if inp == "1":
                 main.msg = msg.deepForest
-                main.location.sub = "forest"
+                main.location.sub = "deepForest3"
                 return main
             if inp == "2":
-                main.msg =  "You have left the forest"
-                main.location.sub = "forest2"
+                main.msg =  "You have entered the great planes, you see a sign saying that you are on the west side \n 1. Go back West back into the forrest 2. Go East further into the planes"
+                main.location.main = "great_planes"
+                main.location.sub = "westPlanes"
                 return main
         return main
