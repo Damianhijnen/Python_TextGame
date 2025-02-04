@@ -58,6 +58,12 @@ def combat(inp, session):
             line(enemy.name + " is attacking")
             dmg = enemy.combat.attack()
             character.hp = character.hp - dmg
+            if character.hp <= 0:
+                line("You where defeated\n")
+                session.character = character
+                session.state = "defeated"
+                session.enemies = []
+            line("hp: " + str(character.ph) + "\n")
         line("\n")
 
         # all enemies defeated

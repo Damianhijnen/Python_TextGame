@@ -17,6 +17,9 @@ def main(session):
             session = travel.main(inp, session)
         if session.state == "combat":
             session = combat.combat(inp, session)
+        if session.state == "defeated":
+            print("You where defeated")
+            break
         inp = ""
         inp = str(input(str(session.msg) + " \n"))
         if inp == "end":
