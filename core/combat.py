@@ -12,58 +12,70 @@ attacks = [attack("stab", 1, 0, 0), attack("slash", 2, 1, 0), attack("super slas
 
 def combat(inp, session):
     character = session.character
+    turn = 0
     enemies = session.enemies
     line("Your being attacked by:")
+    for enemy in enemies:
+        line(" " + enemy.name + " " +  str(enemy.hp))
+    time.sleep(0.50)
+
     while True:
-        for enemy in enemies:
-            line(" " + enemy.name + " " +  str(enemy.hp))
-        inp = sInput("\nhp: " + str(character.hp) + " \nActions \n 1. Attack \n Choose action: ")
-        if inp == "end":
-            line("you ended the senario")
-            break
-        # start attack
-        elif inp == "1":
-            line("\nYour attacking \n\nAttacks:")
-            # Attack player fase
-            while True:
-                # Choosing attack
-                for attack in attacks:
-                    line(" " + attack.name + " dmg: " + str(attack.damage))
-                inp = inpInt(sInput("\nChoose Attack: "))
-                if inp != "" and inp != 0 and inp <= len(attacks):
-                    att = attacks[inp-1]
-                    # Selecting enemy
-                    for index, enemy in enumerate(enemies):
-                        line(str(index+1) + " " + enemy.name + " " +  str(enemy.hp))
-                    inp = inpInt(input("\nChoose enemy: "))
-                    if inp >= 1 and inp <= len(enemies):
-                        inp -= 1
-                        line("Attacking " + enemies[inp].name)
-                        enemies[inp].hp = enemies[inp].hp - att.damage
-                        line("You " + att.name + " " + enemies[inp].name + " for " + str(att.damage) + " dmg")
-                        if enemies[inp].hp <= 0:
-                            line(enemies[inp].name + " was slain")
-                            enemies.pop(inp)
-                        break
+        turn += character.speed
+        if turn >= 100:
+            turn -= 100
+            for enemy in enemies:
+                line(" " + enemy.name + " " +  str(enemy.hp))
+            inp = sInput("\nhp: " + str(character.hp) + " \nActions \n 1. Attack \n Choose action: ")
+            if inp == "end":
+                line("you ended the senario")
+                break
+            # start attack
+            elif inp == "1":
+                line("\nYour attacking \n\nAttacks:")
+                # Attack player fase
+                while True:
+                    # Choosing attack
+                    for attack in attacks:
+                        line(" " + attack.name + " dmg: " + str(attack.damage))
+                    inp = inpInt(sInput("\nChoose Attack: "))
+                    if inp != "" and inp != 0 and inp <= len(attacks):
+                        att = attacks[inp-1]
+                        # Selecting enemy
+                        for index, enemy in enumerate(enemies):
+                            line(str(index+1) + " " + enemy.name + " " +  str(enemy.hp))
+                        inp = inpInt(input("\nChoose enemy: "))
+                        if inp >= 1 and inp <= len(enemies):
+                            inp -= 1
+                            line("Attacking " + enemies[inp].name)
+                            enemies[inp].hp = enemies[inp].hp - att.damage
+                            line("You " + att.name + " " + enemies[inp].name + " for " + str(att.damage) + " dmg")
+                            if enemies[inp].hp <= 0:
+                                line(enemies[inp].name + " was slain")
+                                enemies.pop(inp)
+                            break
+                        else:
+                            line("You " + att.name + " the air for 0 dmg")
                     else:
-                        line("You " + att.name + " the air for 0 dmg")
-                else:
-                    line("Wrong input must be a number")
-                # end of player sequence
-        else:
-            line("Not an action")
-            continue
+                        line("Wrong input must be a number")
+                    # end of player sequence
+            else:
+                line("Not an action")
+                continue
         # ai attack sequence
-        for enemy in enemies:
-            line(enemy.name + " is attacking")
-            dmg = enemy.combat.attack()
-            character.hp = character.hp - dmg
-            if character.hp <= 0:
-                line("You where defeated\n")
-                session.character = character
-                session.state = "defeated"
-                session.enemies = []
-            line("hp: " + str(character.ph) + "\n")
+        for i, enemy in enumerate(enemies):
+            enemies[i].turn += enemy.speed
+            if enemy.turn >= 100:
+                enemies[i].turn -= 100
+                line(enemy.name + " is attacking")
+                dmg = enemy.combat.attack()
+                character.hp = character.hp - dmg
+                if character.hp <= 0:
+                    line("You where defeated\n")
+                    session.character = character
+                    session.state = "defeated"
+                    session.enemies = []
+                line("hp: " + str(character.hp) + "\n")
+                time.sleep(2.00)
         line("\n")
 
         # all enemies defeated
@@ -78,7 +90,7 @@ def combat(inp, session):
 
 
 
-def senarioGenerator(chance, dificulty, session, rangeArr):
+def senarioGenerator(chance, dificulty, session, rangeArr, type: str = ""):
     location = session.location
     session.enemies = []
     # range[0] = min, range[1] = max
@@ -86,7 +98,10 @@ def senarioGenerator(chance, dificulty, session, rangeArr):
     if chance >= random.randint(1, 100):
         for i in range(amount):
             if location.main == "veritas":
-                session.enemies.append(enemyGenerator(dificulty, ["golem"]))
+                if type == "animal":
+                    session.enemies.append(enemyGenerator(dificulty, ["fox"]))
+                else:
+                    session.enemies.append(enemyGenerator(dificulty, ["golem"]))
         session.state = "combat"
     return session
 

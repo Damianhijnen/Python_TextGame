@@ -1,11 +1,12 @@
 import core.combat as combat
+from core.function import inpInt, sInput, nobreak_line, line
 
 
 def location(inp, main):
         class msg:
             townSquare = "You are on the main square.\n 1. Go to Town Hall 2. Go to Forest: "
             townHall = "You are in the Town hall.\n 1. Go outside "
-            forest = "You are in the forest.\n 1. Go back 2. Go deeper"
+            forest = "You are in the forest.\n 1. Go back 2. Go deeper 3. Hunt for wild animals"
             deepForest = "You are deep in the forest.\n 1. Go back 2. Go deeper"
         if main.location.sub == "townSquare":
             if inp == "1":
@@ -25,7 +26,7 @@ def location(inp, main):
                 return main
             else:
                 main.msg = msg.townHall
-        #Forrest###########
+        ######### Forrest ###########
         if main.location.sub == "forest":
             #combat.senarioGenerator(100, 1, main, [1, 3])
             main.msg = msg.forest
@@ -37,6 +38,10 @@ def location(inp, main):
                 main.msg = msg.forest
                 main.location.sub = "forest2"
                 return main
+            if inp == "3":
+                combat.senarioGenerator(100, 1, main, [1, 1], "animal")
+                line("You spend time looking for animals")
+                return main
         if main.location.sub == "forest2":
             #combat.senarioGenerator(100, 1, main, [1, 3])
             if inp == "1":
@@ -46,6 +51,10 @@ def location(inp, main):
             if inp == "2":
                 main.msg = msg.deepForest
                 main.location.sub = "deepForest"
+                return main
+            if inp == "3":
+                combat.senarioGenerator(100, 1, main, [1, 1], "animal")
+                line("You spend time looking for animals")
                 return main
         if main.location.sub == "deepForest":
             #combat.senarioGenerator(100, 1, main, [1, 3])

@@ -92,7 +92,16 @@ def location(inp, main):
                 main.location.sub = "southPlane1"
                 return main
             if inp == "2":
-                main.msg = msg.southPlanes
+                main.msg = "You see a town in the distance"
+                main.location.sub = "southPlane3"
+                return main
+        if main.location.sub == "southPlane3":
+            if inp == "1":
+                main.msg = "You are leaving the town in the distance and go north"
+                main.location.sub = "southPlane2"
+                return main
+            if inp == "2":
+                main.msg = "You are you are getting close to a gate"
                 main.location.sub = "southPlane3"
                 return main
 

@@ -1,6 +1,6 @@
 #Rogue, Wizzard
 class Character:
-    def __init__(self, strength: int = 1, accuracy: int = 1, speed: int = 1, endurance: int = 1, stamina: int = 100, mana: int = 100, hp: int = 100):
+    def __init__(self, strength: int = 2, accuracy: int = 2, speed: int = 2, endurance: int = 2, stamina: int = 100, mana: int = 100, hp: int = 100):
         self.strength = strength
         self.accuracy = accuracy
         self.speed = speed
